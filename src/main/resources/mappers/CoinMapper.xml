@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.three.coinexchange.mapper.CoinMapper" >
+  <resultMap id="BaseResultMap" type="com.three.coinexchange.bean.Coin" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="wallet" property="wallet" jdbcType="VARCHAR" />
+    <result column="round" property="round" jdbcType="TINYINT" />
+    <result column="base_amount" property="baseAmount" jdbcType="DECIMAL" />
+    <result column="min_amount" property="minAmount" jdbcType="DECIMAL" />
+    <result column="max_amount" property="maxAmount" jdbcType="DECIMAL" />
+    <result column="day_max_amount" property="dayMaxAmount" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="auto_out" property="autoOut" jdbcType="DOUBLE" />
+    <result column="rate" property="rate" jdbcType="DOUBLE" />
+    <result column="min_fee_num" property="minFeeNum" jdbcType="DECIMAL" />
+    <result column="withdraw_flag" property="withdrawFlag" jdbcType="TINYINT" />
+    <result column="recharge_flag" property="rechargeFlag" jdbcType="TINYINT" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, title, img, type, wallet, round, base_amount, min_amount, max_amount, day_max_amount, 
+    status, auto_out, rate, min_fee_num, withdraw_flag, recharge_flag, last_update_time, 
+    created
+  </sql>
+  <select id="selectByName" resultType="com.three.coinexchange.bean.Coin">
+    select
+    <include refid="Base_Column_List" />
+    from coin
+    where name = #{name}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from coin
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByParams" resultType="com.three.coinexchange.bean.Coin">
+    select
+    <include refid="Base_Column_List" />
+    from coin
+    <where>
+      <if test="true">
+        and status = 1
+      </if>
+      <if test="name != null and name != ''">
+        and name = #{name}
+      </if>
+      <if test="wallet != null and wallet != ''">
+        and wallet = #{wallet}
+      </if>
+      <if test="createdBegin != null and createdEnd != null" >
+        and <![CDATA[ created >= #{createdBegin} and created <= #{createdEnd} ]]>
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from coin
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.three.coinexchange.bean.Coin" >
+    insert into coin (id, name, title, 
+      img, type, wallet, 
+      round, base_amount, min_amount, 
+      max_amount, day_max_amount, status, 
+      auto_out, rate, min_fee_num, 
+      withdraw_flag, recharge_flag, last_update_time, 
+      created)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{img,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{wallet,jdbcType=VARCHAR}, 
+      #{round,jdbcType=TINYINT}, #{baseAmount,jdbcType=DECIMAL}, #{minAmount,jdbcType=DECIMAL}, 
+      #{maxAmount,jdbcType=DECIMAL}, #{dayMaxAmount,jdbcType=DECIMAL}, #{status,jdbcType=BIT}, 
+      #{autoOut,jdbcType=DOUBLE}, #{rate,jdbcType=DOUBLE}, #{minFeeNum,jdbcType=DECIMAL}, 
+      #{withdrawFlag,jdbcType=TINYINT}, #{rechargeFlag,jdbcType=TINYINT}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{created,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.three.coinexchange.bean.Coin" >
+    insert into coin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="wallet != null" >
+        wallet,
+      </if>
+      <if test="round != null" >
+        round,
+      </if>
+      <if test="baseAmount != null" >
+        base_amount,
+      </if>
+      <if test="minAmount != null" >
+        min_amount,
+      </if>
+      <if test="maxAmount != null" >
+        max_amount,
+      </if>
+      <if test="dayMaxAmount != null" >
+        day_max_amount,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="autoOut != null" >
+        auto_out,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="minFeeNum != null" >
+        min_fee_num,
+      </if>
+      <if test="withdrawFlag != null" >
+        withdraw_flag,
+      </if>
+      <if test="rechargeFlag != null" >
+        recharge_flag,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="wallet != null" >
+        #{wallet,jdbcType=VARCHAR},
+      </if>
+      <if test="round != null" >
+        #{round,jdbcType=TINYINT},
+      </if>
+      <if test="baseAmount != null" >
+        #{baseAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="minAmount != null" >
+        #{minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null" >
+        #{maxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="dayMaxAmount != null" >
+        #{dayMaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="autoOut != null" >
+        #{autoOut,jdbcType=DOUBLE},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DOUBLE},
+      </if>
+      <if test="minFeeNum != null" >
+        #{minFeeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawFlag != null" >
+        #{withdrawFlag,jdbcType=TINYINT},
+      </if>
+      <if test="rechargeFlag != null" >
+        #{rechargeFlag,jdbcType=TINYINT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertHasKey" parameterType="com.three.coinexchange.bean.Coin" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
+    insert into coin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="wallet != null" >
+        wallet,
+      </if>
+      <if test="round != null" >
+        round,
+      </if>
+      <if test="baseAmount != null" >
+        base_amount,
+      </if>
+      <if test="minAmount != null" >
+        min_amount,
+      </if>
+      <if test="maxAmount != null" >
+        max_amount,
+      </if>
+      <if test="dayMaxAmount != null" >
+        day_max_amount,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="autoOut != null" >
+        auto_out,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="minFeeNum != null" >
+        min_fee_num,
+      </if>
+      <if test="withdrawFlag != null" >
+        withdraw_flag,
+      </if>
+      <if test="rechargeFlag != null" >
+        recharge_flag,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="wallet != null" >
+        #{wallet,jdbcType=VARCHAR},
+      </if>
+      <if test="round != null" >
+        #{round,jdbcType=TINYINT},
+      </if>
+      <if test="baseAmount != null" >
+        #{baseAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="minAmount != null" >
+        #{minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null" >
+        #{maxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="dayMaxAmount != null" >
+        #{dayMaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="autoOut != null" >
+        #{autoOut,jdbcType=DOUBLE},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DOUBLE},
+      </if>
+      <if test="minFeeNum != null" >
+        #{minFeeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawFlag != null" >
+        #{withdrawFlag,jdbcType=TINYINT},
+      </if>
+      <if test="rechargeFlag != null" >
+        #{rechargeFlag,jdbcType=TINYINT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.three.coinexchange.bean.Coin" >
+    update coin
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="wallet != null" >
+        wallet = #{wallet,jdbcType=VARCHAR},
+      </if>
+      <if test="round != null" >
+        round = #{round,jdbcType=TINYINT},
+      </if>
+      <if test="baseAmount != null" >
+        base_amount = #{baseAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="minAmount != null" >
+        min_amount = #{minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null" >
+        max_amount = #{maxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="dayMaxAmount != null" >
+        day_max_amount = #{dayMaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="autoOut != null" >
+        auto_out = #{autoOut,jdbcType=DOUBLE},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=DOUBLE},
+      </if>
+      <if test="minFeeNum != null" >
+        min_fee_num = #{minFeeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawFlag != null" >
+        withdraw_flag = #{withdrawFlag,jdbcType=TINYINT},
+      </if>
+      <if test="rechargeFlag != null" >
+        recharge_flag = #{rechargeFlag,jdbcType=TINYINT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.three.coinexchange.bean.Coin" >
+    update coin
+    set name = #{name,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      wallet = #{wallet,jdbcType=VARCHAR},
+      round = #{round,jdbcType=TINYINT},
+      base_amount = #{baseAmount,jdbcType=DECIMAL},
+      min_amount = #{minAmount,jdbcType=DECIMAL},
+      max_amount = #{maxAmount,jdbcType=DECIMAL},
+      day_max_amount = #{dayMaxAmount,jdbcType=DECIMAL},
+      status = #{status,jdbcType=BIT},
+      auto_out = #{autoOut,jdbcType=DOUBLE},
+      rate = #{rate,jdbcType=DOUBLE},
+      min_fee_num = #{minFeeNum,jdbcType=DECIMAL},
+      withdraw_flag = #{withdrawFlag,jdbcType=TINYINT},
+      recharge_flag = #{rechargeFlag,jdbcType=TINYINT},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="deleteBatch">
+    update coin
+    set status = 0
+    <where>
+      id in
+      <foreach collection="array" open="(" close=")" separator="," item="id">
+        #{id}
+      </foreach>
+    </where>
+  </update>
+</mapper>

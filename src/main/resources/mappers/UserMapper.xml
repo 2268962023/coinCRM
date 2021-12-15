@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.three.coinexchange.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.three.coinexchange.bean.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="country_code" property="countryCode" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="paypassword" property="paypassword" jdbcType="VARCHAR" />
+    <result column="paypass_setting" property="paypassSetting" jdbcType="BIT" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="id_card_type" property="idCardType" jdbcType="BIT" />
+    <result column="auth_status" property="authStatus" jdbcType="TINYINT" />
+    <result column="ga_secret" property="gaSecret" jdbcType="VARCHAR" />
+    <result column="ga_status" property="gaStatus" jdbcType="BIT" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="authtime" property="authtime" jdbcType="TIMESTAMP" />
+    <result column="logins" property="logins" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invite_code" property="inviteCode" jdbcType="VARCHAR" />
+    <result column="direct_inviteid" property="directInviteid" jdbcType="VARCHAR" />
+    <result column="is_deductible" property="isDeductible" jdbcType="INTEGER" />
+    <result column="reviews_status" property="reviewsStatus" jdbcType="INTEGER" />
+    <result column="access_key_id" property="accessKeyId" jdbcType="VARCHAR" />
+    <result column="access_key_secret" property="accessKeySecret" jdbcType="VARCHAR" />
+    <result column="refe_auth_id" property="refeAuthId" jdbcType="BIGINT" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.three.coinexchange.bean.UserWithBLOBs" extends="BaseResultMap" >
+    <result column="invite_relation" property="inviteRelation" jdbcType="LONGVARCHAR" />
+    <result column="agent_note" property="agentNote" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type, username, country_code, mobile, password, paypassword, paypass_setting, 
+    email, real_name, id_card_type, auth_status, ga_secret, ga_status, id_card, level, 
+    authtime, logins, status, invite_code, direct_inviteid, is_deductible, reviews_status, 
+    access_key_id, access_key_secret, refe_auth_id, last_update_time, created
+  </sql>
+  <sql id="Blob_Column_List" >
+    invite_relation, agent_note
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.three.coinexchange.bean.UserWithBLOBs" >
+    insert into user (id, type, username, 
+      country_code, mobile, password, 
+      paypassword, paypass_setting, email, 
+      real_name, id_card_type, auth_status, 
+      ga_secret, ga_status, id_card, 
+      level, authtime, logins, 
+      status, invite_code, direct_inviteid, 
+      is_deductible, reviews_status, access_key_id, 
+      access_key_secret, refe_auth_id, last_update_time, 
+      created, invite_relation, agent_note
+      )
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, #{username,jdbcType=VARCHAR}, 
+      #{countryCode,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{paypassword,jdbcType=VARCHAR}, #{paypassSetting,jdbcType=BIT}, #{email,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{idCardType,jdbcType=BIT}, #{authStatus,jdbcType=TINYINT}, 
+      #{gaSecret,jdbcType=VARCHAR}, #{gaStatus,jdbcType=BIT}, #{idCard,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{authtime,jdbcType=TIMESTAMP}, #{logins,jdbcType=INTEGER}, 
+      #{status,jdbcType=TINYINT}, #{inviteCode,jdbcType=VARCHAR}, #{directInviteid,jdbcType=VARCHAR}, 
+      #{isDeductible,jdbcType=INTEGER}, #{reviewsStatus,jdbcType=INTEGER}, #{accessKeyId,jdbcType=VARCHAR}, 
+      #{accessKeySecret,jdbcType=VARCHAR}, #{refeAuthId,jdbcType=BIGINT}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{created,jdbcType=TIMESTAMP}, #{inviteRelation,jdbcType=LONGVARCHAR}, #{agentNote,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.three.coinexchange.bean.UserWithBLOBs" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="countryCode != null" >
+        country_code,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="paypassword != null" >
+        paypassword,
+      </if>
+      <if test="paypassSetting != null" >
+        paypass_setting,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="idCardType != null" >
+        id_card_type,
+      </if>
+      <if test="authStatus != null" >
+        auth_status,
+      </if>
+      <if test="gaSecret != null" >
+        ga_secret,
+      </if>
+      <if test="gaStatus != null" >
+        ga_status,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="authtime != null" >
+        authtime,
+      </if>
+      <if test="logins != null" >
+        logins,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="inviteCode != null" >
+        invite_code,
+      </if>
+      <if test="directInviteid != null" >
+        direct_inviteid,
+      </if>
+      <if test="isDeductible != null" >
+        is_deductible,
+      </if>
+      <if test="reviewsStatus != null" >
+        reviews_status,
+      </if>
+      <if test="accessKeyId != null" >
+        access_key_id,
+      </if>
+      <if test="accessKeySecret != null" >
+        access_key_secret,
+      </if>
+      <if test="refeAuthId != null" >
+        refe_auth_id,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="inviteRelation != null" >
+        invite_relation,
+      </if>
+      <if test="agentNote != null" >
+        agent_note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null" >
+        #{countryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="paypassword != null" >
+        #{paypassword,jdbcType=VARCHAR},
+      </if>
+      <if test="paypassSetting != null" >
+        #{paypassSetting,jdbcType=BIT},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardType != null" >
+        #{idCardType,jdbcType=BIT},
+      </if>
+      <if test="authStatus != null" >
+        #{authStatus,jdbcType=TINYINT},
+      </if>
+      <if test="gaSecret != null" >
+        #{gaSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="gaStatus != null" >
+        #{gaStatus,jdbcType=BIT},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="authtime != null" >
+        #{authtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logins != null" >
+        #{logins,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="inviteCode != null" >
+        #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="directInviteid != null" >
+        #{directInviteid,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeductible != null" >
+        #{isDeductible,jdbcType=INTEGER},
+      </if>
+      <if test="reviewsStatus != null" >
+        #{reviewsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="accessKeyId != null" >
+        #{accessKeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessKeySecret != null" >
+        #{accessKeySecret,jdbcType=VARCHAR},
+      </if>
+      <if test="refeAuthId != null" >
+        #{refeAuthId,jdbcType=BIGINT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inviteRelation != null" >
+        #{inviteRelation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="agentNote != null" >
+        #{agentNote,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.three.coinexchange.bean.UserWithBLOBs" >
+    update user
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null" >
+        country_code = #{countryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="paypassword != null" >
+        paypassword = #{paypassword,jdbcType=VARCHAR},
+      </if>
+      <if test="paypassSetting != null" >
+        paypass_setting = #{paypassSetting,jdbcType=BIT},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardType != null" >
+        id_card_type = #{idCardType,jdbcType=BIT},
+      </if>
+      <if test="authStatus != null" >
+        auth_status = #{authStatus,jdbcType=TINYINT},
+      </if>
+      <if test="gaSecret != null" >
+        ga_secret = #{gaSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="gaStatus != null" >
+        ga_status = #{gaStatus,jdbcType=BIT},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="authtime != null" >
+        authtime = #{authtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logins != null" >
+        logins = #{logins,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="inviteCode != null" >
+        invite_code = #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="directInviteid != null" >
+        direct_inviteid = #{directInviteid,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeductible != null" >
+        is_deductible = #{isDeductible,jdbcType=INTEGER},
+      </if>
+      <if test="reviewsStatus != null" >
+        reviews_status = #{reviewsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="accessKeyId != null" >
+        access_key_id = #{accessKeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessKeySecret != null" >
+        access_key_secret = #{accessKeySecret,jdbcType=VARCHAR},
+      </if>
+      <if test="refeAuthId != null" >
+        refe_auth_id = #{refeAuthId,jdbcType=BIGINT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inviteRelation != null" >
+        invite_relation = #{inviteRelation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="agentNote != null" >
+        agent_note = #{agentNote,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.three.coinexchange.bean.UserWithBLOBs" >
+    update user
+    set type = #{type,jdbcType=TINYINT},
+      username = #{username,jdbcType=VARCHAR},
+      country_code = #{countryCode,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      paypassword = #{paypassword,jdbcType=VARCHAR},
+      paypass_setting = #{paypassSetting,jdbcType=BIT},
+      email = #{email,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      id_card_type = #{idCardType,jdbcType=BIT},
+      auth_status = #{authStatus,jdbcType=TINYINT},
+      ga_secret = #{gaSecret,jdbcType=VARCHAR},
+      ga_status = #{gaStatus,jdbcType=BIT},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      authtime = #{authtime,jdbcType=TIMESTAMP},
+      logins = #{logins,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      invite_code = #{inviteCode,jdbcType=VARCHAR},
+      direct_inviteid = #{directInviteid,jdbcType=VARCHAR},
+      is_deductible = #{isDeductible,jdbcType=INTEGER},
+      reviews_status = #{reviewsStatus,jdbcType=INTEGER},
+      access_key_id = #{accessKeyId,jdbcType=VARCHAR},
+      access_key_secret = #{accessKeySecret,jdbcType=VARCHAR},
+      refe_auth_id = #{refeAuthId,jdbcType=BIGINT},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=TIMESTAMP},
+      invite_relation = #{inviteRelation,jdbcType=LONGVARCHAR},
+      agent_note = #{agentNote,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.three.coinexchange.bean.User" >
+    update user
+    set type = #{type,jdbcType=TINYINT},
+      username = #{username,jdbcType=VARCHAR},
+      country_code = #{countryCode,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      paypassword = #{paypassword,jdbcType=VARCHAR},
+      paypass_setting = #{paypassSetting,jdbcType=BIT},
+      email = #{email,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      id_card_type = #{idCardType,jdbcType=BIT},
+      auth_status = #{authStatus,jdbcType=TINYINT},
+      ga_secret = #{gaSecret,jdbcType=VARCHAR},
+      ga_status = #{gaStatus,jdbcType=BIT},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      authtime = #{authtime,jdbcType=TIMESTAMP},
+      logins = #{logins,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      invite_code = #{inviteCode,jdbcType=VARCHAR},
+      direct_inviteid = #{directInviteid,jdbcType=VARCHAR},
+      is_deductible = #{isDeductible,jdbcType=INTEGER},
+      reviews_status = #{reviewsStatus,jdbcType=INTEGER},
+      access_key_id = #{accessKeyId,jdbcType=VARCHAR},
+      access_key_secret = #{accessKeySecret,jdbcType=VARCHAR},
+      refe_auth_id = #{refeAuthId,jdbcType=BIGINT},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="authStatus" resultType="int">
+    select count(auth_status) from user where auth_status=0
+  </select>
+
+  <select id="authStatus1" resultType="int">
+     select count(auth_status) from user where auth_status=1
+  </select>
+  <select id="authStatus2" resultType="int">
+    select count(auth_status) from user where auth_status=2
+  </select>
+
+  <select id="selectByParams" parameterType="UserQuery" resultType="User">
+    select * from user
+    <where>
+      <if test="userName!=null and userName!=''">
+        and username like concat('%',#{userName},'%')
+      </if>
+      <if test="mobile != null and mobile !='' ">
+        and mobile = #{mobile}
+      </if>
+      <if test="realName != null and realName !=''">
+        and real_name = #{realName}
+      </if>
+      <if test="status != null">
+        and status =  #{status}
+      </if>
+    </where>
+
+  </select>
+
+</mapper>

@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.three.coinexchange.mapper.TurnoverOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.three.coinexchange.bean.TurnoverOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="market_id" property="marketId" jdbcType="BIGINT" />
+    <result column="market_type" property="marketType" jdbcType="INTEGER" />
+    <result column="trade_type" property="tradeType" jdbcType="BIT" />
+    <result column="symbol" property="symbol" jdbcType="VARCHAR" />
+    <result column="market_name" property="marketName" jdbcType="VARCHAR" />
+    <result column="sell_user_id" property="sellUserId" jdbcType="BIGINT" />
+    <result column="sell_coin_id" property="sellCoinId" jdbcType="BIGINT" />
+    <result column="sell_order_id" property="sellOrderId" jdbcType="BIGINT" />
+    <result column="sell_price" property="sellPrice" jdbcType="DECIMAL" />
+    <result column="sell_fee_rate" property="sellFeeRate" jdbcType="DECIMAL" />
+    <result column="sell_volume" property="sellVolume" jdbcType="DECIMAL" />
+    <result column="buy_user_id" property="buyUserId" jdbcType="BIGINT" />
+    <result column="buy_coin_id" property="buyCoinId" jdbcType="BIGINT" />
+    <result column="buy_order_id" property="buyOrderId" jdbcType="BIGINT" />
+    <result column="buy_volume" property="buyVolume" jdbcType="DECIMAL" />
+    <result column="buy_price" property="buyPrice" jdbcType="DECIMAL" />
+    <result column="buy_fee_rate" property="buyFeeRate" jdbcType="DECIMAL" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="volume" property="volume" jdbcType="DECIMAL" />
+    <result column="deal_sell_fee" property="dealSellFee" jdbcType="DECIMAL" />
+    <result column="deal_sell_fee_rate" property="dealSellFeeRate" jdbcType="DECIMAL" />
+    <result column="deal_buy_fee" property="dealBuyFee" jdbcType="DECIMAL" />
+    <result column="deal_buy_fee_rate" property="dealBuyFeeRate" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, market_id, market_type, trade_type, symbol, market_name, sell_user_id, sell_coin_id, 
+    sell_order_id, sell_price, sell_fee_rate, sell_volume, buy_user_id, buy_coin_id, 
+    buy_order_id, buy_volume, buy_price, buy_fee_rate, order_id, amount, price, volume, 
+    deal_sell_fee, deal_sell_fee_rate, deal_buy_fee, deal_buy_fee_rate, status, last_update_time, 
+    created
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from turnover_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from turnover_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.three.coinexchange.bean.TurnoverOrder" >
+    insert into turnover_order (id, market_id, market_type, 
+      trade_type, symbol, market_name, 
+      sell_user_id, sell_coin_id, sell_order_id, 
+      sell_price, sell_fee_rate, sell_volume, 
+      buy_user_id, buy_coin_id, buy_order_id, 
+      buy_volume, buy_price, buy_fee_rate, 
+      order_id, amount, price, 
+      volume, deal_sell_fee, deal_sell_fee_rate, 
+      deal_buy_fee, deal_buy_fee_rate, status, 
+      last_update_time, created)
+    values (#{id,jdbcType=BIGINT}, #{marketId,jdbcType=BIGINT}, #{marketType,jdbcType=INTEGER}, 
+      #{tradeType,jdbcType=BIT}, #{symbol,jdbcType=VARCHAR}, #{marketName,jdbcType=VARCHAR}, 
+      #{sellUserId,jdbcType=BIGINT}, #{sellCoinId,jdbcType=BIGINT}, #{sellOrderId,jdbcType=BIGINT}, 
+      #{sellPrice,jdbcType=DECIMAL}, #{sellFeeRate,jdbcType=DECIMAL}, #{sellVolume,jdbcType=DECIMAL}, 
+      #{buyUserId,jdbcType=BIGINT}, #{buyCoinId,jdbcType=BIGINT}, #{buyOrderId,jdbcType=BIGINT}, 
+      #{buyVolume,jdbcType=DECIMAL}, #{buyPrice,jdbcType=DECIMAL}, #{buyFeeRate,jdbcType=DECIMAL}, 
+      #{orderId,jdbcType=BIGINT}, #{amount,jdbcType=DECIMAL}, #{price,jdbcType=DECIMAL}, 
+      #{volume,jdbcType=DECIMAL}, #{dealSellFee,jdbcType=DECIMAL}, #{dealSellFeeRate,jdbcType=DECIMAL}, 
+      #{dealBuyFee,jdbcType=DECIMAL}, #{dealBuyFeeRate,jdbcType=DECIMAL}, #{status,jdbcType=BIT}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{created,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.three.coinexchange.bean.TurnoverOrder" >
+    insert into turnover_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="marketId != null" >
+        market_id,
+      </if>
+      <if test="marketType != null" >
+        market_type,
+      </if>
+      <if test="tradeType != null" >
+        trade_type,
+      </if>
+      <if test="symbol != null" >
+        symbol,
+      </if>
+      <if test="marketName != null" >
+        market_name,
+      </if>
+      <if test="sellUserId != null" >
+        sell_user_id,
+      </if>
+      <if test="sellCoinId != null" >
+        sell_coin_id,
+      </if>
+      <if test="sellOrderId != null" >
+        sell_order_id,
+      </if>
+      <if test="sellPrice != null" >
+        sell_price,
+      </if>
+      <if test="sellFeeRate != null" >
+        sell_fee_rate,
+      </if>
+      <if test="sellVolume != null" >
+        sell_volume,
+      </if>
+      <if test="buyUserId != null" >
+        buy_user_id,
+      </if>
+      <if test="buyCoinId != null" >
+        buy_coin_id,
+      </if>
+      <if test="buyOrderId != null" >
+        buy_order_id,
+      </if>
+      <if test="buyVolume != null" >
+        buy_volume,
+      </if>
+      <if test="buyPrice != null" >
+        buy_price,
+      </if>
+      <if test="buyFeeRate != null" >
+        buy_fee_rate,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="volume != null" >
+        volume,
+      </if>
+      <if test="dealSellFee != null" >
+        deal_sell_fee,
+      </if>
+      <if test="dealSellFeeRate != null" >
+        deal_sell_fee_rate,
+      </if>
+      <if test="dealBuyFee != null" >
+        deal_buy_fee,
+      </if>
+      <if test="dealBuyFeeRate != null" >
+        deal_buy_fee_rate,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="marketId != null" >
+        #{marketId,jdbcType=BIGINT},
+      </if>
+      <if test="marketType != null" >
+        #{marketType,jdbcType=INTEGER},
+      </if>
+      <if test="tradeType != null" >
+        #{tradeType,jdbcType=BIT},
+      </if>
+      <if test="symbol != null" >
+        #{symbol,jdbcType=VARCHAR},
+      </if>
+      <if test="marketName != null" >
+        #{marketName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellUserId != null" >
+        #{sellUserId,jdbcType=BIGINT},
+      </if>
+      <if test="sellCoinId != null" >
+        #{sellCoinId,jdbcType=BIGINT},
+      </if>
+      <if test="sellOrderId != null" >
+        #{sellOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="sellPrice != null" >
+        #{sellPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sellFeeRate != null" >
+        #{sellFeeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="sellVolume != null" >
+        #{sellVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="buyUserId != null" >
+        #{buyUserId,jdbcType=BIGINT},
+      </if>
+      <if test="buyCoinId != null" >
+        #{buyCoinId,jdbcType=BIGINT},
+      </if>
+      <if test="buyOrderId != null" >
+        #{buyOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="buyVolume != null" >
+        #{buyVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="buyPrice != null" >
+        #{buyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="buyFeeRate != null" >
+        #{buyFeeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="volume != null" >
+        #{volume,jdbcType=DECIMAL},
+      </if>
+      <if test="dealSellFee != null" >
+        #{dealSellFee,jdbcType=DECIMAL},
+      </if>
+      <if test="dealSellFeeRate != null" >
+        #{dealSellFeeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="dealBuyFee != null" >
+        #{dealBuyFee,jdbcType=DECIMAL},
+      </if>
+      <if test="dealBuyFeeRate != null" >
+        #{dealBuyFeeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.three.coinexchange.bean.TurnoverOrder" >
+    update turnover_order
+    <set >
+      <if test="marketId != null" >
+        market_id = #{marketId,jdbcType=BIGINT},
+      </if>
+      <if test="marketType != null" >
+        market_type = #{marketType,jdbcType=INTEGER},
+      </if>
+      <if test="tradeType != null" >
+        trade_type = #{tradeType,jdbcType=BIT},
+      </if>
+      <if test="symbol != null" >
+        symbol = #{symbol,jdbcType=VARCHAR},
+      </if>
+      <if test="marketName != null" >
+        market_name = #{marketName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellUserId != null" >
+        sell_user_id = #{sellUserId,jdbcType=BIGINT},
+      </if>
+      <if test="sellCoinId != null" >
+        sell_coin_id = #{sellCoinId,jdbcType=BIGINT},
+      </if>
+      <if test="sellOrderId != null" >
+        sell_order_id = #{sellOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="sellPrice != null" >
+        sell_price = #{sellPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sellFeeRate != null" >
+        sell_fee_rate = #{sellFeeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="sellVolume != null" >
+        sell_volume = #{sellVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="buyUserId != null" >
+        buy_user_id = #{buyUserId,jdbcType=BIGINT},
+      </if>
+      <if test="buyCoinId != null" >
+        buy_coin_id = #{buyCoinId,jdbcType=BIGINT},
+      </if>
+      <if test="buyOrderId != null" >
+        buy_order_id = #{buyOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="buyVolume != null" >
+        buy_volume = #{buyVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="buyPrice != null" >
+        buy_price = #{buyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="buyFeeRate != null" >
+        buy_fee_rate = #{buyFeeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="volume != null" >
+        volume = #{volume,jdbcType=DECIMAL},
+      </if>
+      <if test="dealSellFee != null" >
+        deal_sell_fee = #{dealSellFee,jdbcType=DECIMAL},
+      </if>
+      <if test="dealSellFeeRate != null" >
+        deal_sell_fee_rate = #{dealSellFeeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="dealBuyFee != null" >
+        deal_buy_fee = #{dealBuyFee,jdbcType=DECIMAL},
+      </if>
+      <if test="dealBuyFeeRate != null" >
+        deal_buy_fee_rate = #{dealBuyFeeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.three.coinexchange.bean.TurnoverOrder" >
+    update turnover_order
+    set market_id = #{marketId,jdbcType=BIGINT},
+      market_type = #{marketType,jdbcType=INTEGER},
+      trade_type = #{tradeType,jdbcType=BIT},
+      symbol = #{symbol,jdbcType=VARCHAR},
+      market_name = #{marketName,jdbcType=VARCHAR},
+      sell_user_id = #{sellUserId,jdbcType=BIGINT},
+      sell_coin_id = #{sellCoinId,jdbcType=BIGINT},
+      sell_order_id = #{sellOrderId,jdbcType=BIGINT},
+      sell_price = #{sellPrice,jdbcType=DECIMAL},
+      sell_fee_rate = #{sellFeeRate,jdbcType=DECIMAL},
+      sell_volume = #{sellVolume,jdbcType=DECIMAL},
+      buy_user_id = #{buyUserId,jdbcType=BIGINT},
+      buy_coin_id = #{buyCoinId,jdbcType=BIGINT},
+      buy_order_id = #{buyOrderId,jdbcType=BIGINT},
+      buy_volume = #{buyVolume,jdbcType=DECIMAL},
+      buy_price = #{buyPrice,jdbcType=DECIMAL},
+      buy_fee_rate = #{buyFeeRate,jdbcType=DECIMAL},
+      order_id = #{orderId,jdbcType=BIGINT},
+      amount = #{amount,jdbcType=DECIMAL},
+      price = #{price,jdbcType=DECIMAL},
+      volume = #{volume,jdbcType=DECIMAL},
+      deal_sell_fee = #{dealSellFee,jdbcType=DECIMAL},
+      deal_sell_fee_rate = #{dealSellFeeRate,jdbcType=DECIMAL},
+      deal_buy_fee = #{dealBuyFee,jdbcType=DECIMAL},
+      deal_buy_fee_rate = #{dealBuyFeeRate,jdbcType=DECIMAL},
+      status = #{status,jdbcType=BIT},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="selectCountTurnoverOrder" resultType="java.lang.Long">
+    select count(id) from turnover_order
+  </select>
+</mapper>

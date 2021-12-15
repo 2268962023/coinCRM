@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.three.coinexchange.mapper.CashwithdrawalsMapper" >
+  <resultMap id="BaseResultMap" type="com.three.coinexchange.bean.Cashwithdrawals" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="coin_id" property="coinId" jdbcType="BIGINT" />
+    <result column="account_id" property="accountId" jdbcType="BIGINT" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="mum" property="mum" jdbcType="DECIMAL" />
+    <result column="truename" property="truename" jdbcType="VARCHAR" />
+    <result column="bank" property="bank" jdbcType="VARCHAR" />
+    <result column="bank_prov" property="bankProv" jdbcType="VARCHAR" />
+    <result column="bank_city" property="bankCity" jdbcType="VARCHAR" />
+    <result column="bank_addr" property="bankAddr" jdbcType="VARCHAR" />
+    <result column="bank_card" property="bankCard" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="step" property="step" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="last_time" property="lastTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, coin_id, account_id, num, fee, mum, truename, bank, bank_prov, bank_city, 
+    bank_addr, bank_card, remark, step, status, created, last_update_time, last_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from cash_withdrawals
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from cash_withdrawals
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.three.coinexchange.bean.Cashwithdrawals" >
+    insert into cash_withdrawals (id, user_id, coin_id, 
+      account_id, num, fee, 
+      mum, truename, bank, 
+      bank_prov, bank_city, bank_addr, 
+      bank_card, remark, step, 
+      status, created, last_update_time, 
+      last_time)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{coinId,jdbcType=BIGINT}, 
+      #{accountId,jdbcType=BIGINT}, #{num,jdbcType=DECIMAL}, #{fee,jdbcType=DECIMAL}, 
+      #{mum,jdbcType=DECIMAL}, #{truename,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR}, 
+      #{bankProv,jdbcType=VARCHAR}, #{bankCity,jdbcType=VARCHAR}, #{bankAddr,jdbcType=VARCHAR}, 
+      #{bankCard,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{step,jdbcType=TINYINT}, 
+      #{status,jdbcType=TINYINT}, #{created,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.three.coinexchange.bean.Cashwithdrawals" >
+    insert into cash_withdrawals
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="coinId != null" >
+        coin_id,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="fee != null" >
+        fee,
+      </if>
+      <if test="mum != null" >
+        mum,
+      </if>
+      <if test="truename != null" >
+        truename,
+      </if>
+      <if test="bank != null" >
+        bank,
+      </if>
+      <if test="bankProv != null" >
+        bank_prov,
+      </if>
+      <if test="bankCity != null" >
+        bank_city,
+      </if>
+      <if test="bankAddr != null" >
+        bank_addr,
+      </if>
+      <if test="bankCard != null" >
+        bank_card,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="step != null" >
+        step,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="lastTime != null" >
+        last_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="coinId != null" >
+        #{coinId,jdbcType=BIGINT},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=BIGINT},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="mum != null" >
+        #{mum,jdbcType=DECIMAL},
+      </if>
+      <if test="truename != null" >
+        #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankProv != null" >
+        #{bankProv,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCity != null" >
+        #{bankCity,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAddr != null" >
+        #{bankAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null" >
+        #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null" >
+        #{step,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.three.coinexchange.bean.Cashwithdrawals" >
+    update cash_withdrawals
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="coinId != null" >
+        coin_id = #{coinId,jdbcType=BIGINT},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=BIGINT},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null" >
+        fee = #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="mum != null" >
+        mum = #{mum,jdbcType=DECIMAL},
+      </if>
+      <if test="truename != null" >
+        truename = #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        bank = #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankProv != null" >
+        bank_prov = #{bankProv,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCity != null" >
+        bank_city = #{bankCity,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAddr != null" >
+        bank_addr = #{bankAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null" >
+        bank_card = #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null" >
+        step = #{step,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTime != null" >
+        last_time = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.three.coinexchange.bean.Cashwithdrawals" >
+    update cash_withdrawals
+    set user_id = #{userId,jdbcType=BIGINT},
+      coin_id = #{coinId,jdbcType=BIGINT},
+      account_id = #{accountId,jdbcType=BIGINT},
+      num = #{num,jdbcType=DECIMAL},
+      fee = #{fee,jdbcType=DECIMAL},
+      mum = #{mum,jdbcType=DECIMAL},
+      truename = #{truename,jdbcType=VARCHAR},
+      bank = #{bank,jdbcType=VARCHAR},
+      bank_prov = #{bankProv,jdbcType=VARCHAR},
+      bank_city = #{bankCity,jdbcType=VARCHAR},
+      bank_addr = #{bankAddr,jdbcType=VARCHAR},
+      bank_card = #{bankCard,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      step = #{step,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      created = #{created,jdbcType=TIMESTAMP},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      last_time = #{lastTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryAllCashRecharge" resultType="java.util.Map">
+    SELECT
+    u.username,
+    u.mobile,
+    cw.id as id,
+    cw.num,
+    cw.fee,
+    cw.mum,
+    cw.truename,
+    cw.bank,
+    cw.bank_card,
+    cw.remark,
+    cw.step,
+    cw.`status`,
+    cw.created,
+    cw.last_update_time,
+    cw.bank_card,
+    cw.last_time
+    FROM
+    cash_withdrawals cw
+    LEFT JOIN USER u ON u.id = cw.user_id
+    <where>
+      <if test="username!=null and username!=''">
+        username like concat('%',#{username},'%')
+      </if>
+      <if test="phone!=null and phone!=''">
+        and mobile like concat('%',#{phone},'%')
+      </if>
+      <if test="status!=null and status!=10">
+        and cr.status=#{status}
+      </if>
+      <if test="startNum!=null and startNum!=''">
+        and num>= #{startNum}
+      </if>
+      <if test="endNum!=null and endNum!=''">
+        and  <![CDATA[num<= #{endNum}]]>
+      </if>
+      <if test="startTime!=null">
+        and  cr.created>=#{startTime}
+      </if>
+      <if test="endTime!=null">
+        and  <![CDATA[cr.last_update_time<= #{endTime}]]>
+      </if>
+    </where>
+  </select>
+</mapper>

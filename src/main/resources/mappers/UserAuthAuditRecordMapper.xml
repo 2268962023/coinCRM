@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.three.coinexchange.mapper.UserAuthAuditRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.three.coinexchange.bean.UserAuthAuditRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="auth_code" property="authCode" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="step" property="step" jdbcType="TINYINT" />
+    <result column="audit_user_id" property="auditUserId" jdbcType="BIGINT" />
+    <result column="audit_user_name" property="auditUserName" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, auth_code, user_id, status, remark, step, audit_user_id, audit_user_name, created
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_auth_audit_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_auth_audit_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.three.coinexchange.bean.UserAuthAuditRecord" >
+    insert into user_auth_audit_record (id, auth_code, user_id, 
+      status, remark, step, 
+      audit_user_id, audit_user_name, created
+      )
+    values (#{id,jdbcType=BIGINT}, #{authCode,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, #{step,jdbcType=TINYINT}, 
+      #{auditUserId,jdbcType=BIGINT}, #{auditUserName,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.three.coinexchange.bean.UserAuthAuditRecord" >
+    insert into user_auth_audit_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="authCode != null" >
+        auth_code,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="step != null" >
+        step,
+      </if>
+      <if test="auditUserId != null" >
+        audit_user_id,
+      </if>
+      <if test="auditUserName != null" >
+        audit_user_name,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="authCode != null" >
+        #{authCode,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null" >
+        #{step,jdbcType=TINYINT},
+      </if>
+      <if test="auditUserId != null" >
+        #{auditUserId,jdbcType=BIGINT},
+      </if>
+      <if test="auditUserName != null" >
+        #{auditUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.three.coinexchange.bean.UserAuthAuditRecord" >
+    update user_auth_audit_record
+    <set >
+      <if test="authCode != null" >
+        auth_code = #{authCode,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null" >
+        step = #{step,jdbcType=TINYINT},
+      </if>
+      <if test="auditUserId != null" >
+        audit_user_id = #{auditUserId,jdbcType=BIGINT},
+      </if>
+      <if test="auditUserName != null" >
+        audit_user_name = #{auditUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.three.coinexchange.bean.UserAuthAuditRecord" >
+    update user_auth_audit_record
+    set auth_code = #{authCode,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      status = #{status,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      step = #{step,jdbcType=TINYINT},
+      audit_user_id = #{auditUserId,jdbcType=BIGINT},
+      audit_user_name = #{auditUserName,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+ <select id="selectByParams" parameterType="UserAuthAuditRecordQuery" resultType="UserAuthAuditRecord">
+    select
+   u.id, u.auth_code, u.user_id, u.status, u.remark, u.step, u.audit_user_id, u.audit_user_name, u.created,user.real_name,user.email,user.mobile,username,user.auth_status,user.id_card
+   from user left join user_auth_audit_record u on u.user_id = user.id
+    <where>
+      <if test="userName!=null and userName!=''">
+        and username like concat('%',#{userName},'%')
+      </if>
+      <if test="mobile != null and mobile !='' ">
+        and mobile = #{mobile}
+      </if>
+      <if test="realName != null and realName !=''">
+        and real_name = #{realName}
+      </if>
+      <if test="userId != null and userId !=''">
+        and user_id =  #{userId}
+      </if> <if test="status != null ">
+        and u.status =  #{status}
+      </if>
+    </where>
+ </select>
+</mapper>

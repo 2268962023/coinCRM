@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.three.coinexchange.mapper.AccountMapper" >
+  <resultMap id="BaseResultMap" type="com.three.coinexchange.bean.Account" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="coin_id" property="coinId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="balance_amount" property="balanceAmount" jdbcType="DECIMAL" />
+    <result column="freeze_amount" property="freezeAmount" jdbcType="DECIMAL" />
+    <result column="recharge_amount" property="rechargeAmount" jdbcType="DECIMAL" />
+    <result column="withdrawals_amount" property="withdrawalsAmount" jdbcType="DECIMAL" />
+    <result column="net_value" property="netValue" jdbcType="DECIMAL" />
+    <result column="lock_margin" property="lockMargin" jdbcType="DECIMAL" />
+    <result column="float_profit" property="floatProfit" jdbcType="DECIMAL" />
+    <result column="total_profit" property="totalProfit" jdbcType="DECIMAL" />
+    <result column="rec_addr" property="recAddr" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, coin_id, status, balance_amount, freeze_amount, recharge_amount, withdrawals_amount, 
+    net_value, lock_margin, float_profit, total_profit, rec_addr, version, last_update_time, 
+    created
+  </sql>
+
+  <!--查询所有-->
+  <select id="selectAll" resultType="com.three.coinexchange.bean.Account">
+    select
+    <include refid="Base_Column_List" />
+    from account
+    order by recharge_amount desc
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from account
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from account
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.three.coinexchange.bean.Account" >
+    insert into account (id, user_id, coin_id, 
+      status, balance_amount, freeze_amount, 
+      recharge_amount, withdrawals_amount, net_value, 
+      lock_margin, float_profit, total_profit, 
+      rec_addr, version, last_update_time, 
+      created)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{coinId,jdbcType=BIGINT}, 
+      #{status,jdbcType=BIT}, #{balanceAmount,jdbcType=DECIMAL}, #{freezeAmount,jdbcType=DECIMAL}, 
+      #{rechargeAmount,jdbcType=DECIMAL}, #{withdrawalsAmount,jdbcType=DECIMAL}, #{netValue,jdbcType=DECIMAL}, 
+      #{lockMargin,jdbcType=DECIMAL}, #{floatProfit,jdbcType=DECIMAL}, #{totalProfit,jdbcType=DECIMAL}, 
+      #{recAddr,jdbcType=VARCHAR}, #{version,jdbcType=BIGINT}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{created,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.three.coinexchange.bean.Account" >
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="coinId != null" >
+        coin_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="balanceAmount != null" >
+        balance_amount,
+      </if>
+      <if test="freezeAmount != null" >
+        freeze_amount,
+      </if>
+      <if test="rechargeAmount != null" >
+        recharge_amount,
+      </if>
+      <if test="withdrawalsAmount != null" >
+        withdrawals_amount,
+      </if>
+      <if test="netValue != null" >
+        net_value,
+      </if>
+      <if test="lockMargin != null" >
+        lock_margin,
+      </if>
+      <if test="floatProfit != null" >
+        float_profit,
+      </if>
+      <if test="totalProfit != null" >
+        total_profit,
+      </if>
+      <if test="recAddr != null" >
+        rec_addr,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="coinId != null" >
+        #{coinId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="balanceAmount != null" >
+        #{balanceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeAmount != null" >
+        #{freezeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeAmount != null" >
+        #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawalsAmount != null" >
+        #{withdrawalsAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="netValue != null" >
+        #{netValue,jdbcType=DECIMAL},
+      </if>
+      <if test="lockMargin != null" >
+        #{lockMargin,jdbcType=DECIMAL},
+      </if>
+      <if test="floatProfit != null" >
+        #{floatProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="totalProfit != null" >
+        #{totalProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="recAddr != null" >
+        #{recAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=BIGINT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.three.coinexchange.bean.Account" >
+    update account
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="coinId != null" >
+        coin_id = #{coinId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="balanceAmount != null" >
+        balance_amount = #{balanceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeAmount != null" >
+        freeze_amount = #{freezeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeAmount != null" >
+        recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawalsAmount != null" >
+        withdrawals_amount = #{withdrawalsAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="netValue != null" >
+        net_value = #{netValue,jdbcType=DECIMAL},
+      </if>
+      <if test="lockMargin != null" >
+        lock_margin = #{lockMargin,jdbcType=DECIMAL},
+      </if>
+      <if test="floatProfit != null" >
+        float_profit = #{floatProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="totalProfit != null" >
+        total_profit = #{totalProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="recAddr != null" >
+        rec_addr = #{recAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=BIGINT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.three.coinexchange.bean.Account" >
+    update account
+    set user_id = #{userId,jdbcType=BIGINT},
+      coin_id = #{coinId,jdbcType=BIGINT},
+      status = #{status,jdbcType=BIT},
+      balance_amount = #{balanceAmount,jdbcType=DECIMAL},
+      freeze_amount = #{freezeAmount,jdbcType=DECIMAL},
+      recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      withdrawals_amount = #{withdrawalsAmount,jdbcType=DECIMAL},
+      net_value = #{netValue,jdbcType=DECIMAL},
+      lock_margin = #{lockMargin,jdbcType=DECIMAL},
+      float_profit = #{floatProfit,jdbcType=DECIMAL},
+      total_profit = #{totalProfit,jdbcType=DECIMAL},
+      rec_addr = #{recAddr,jdbcType=VARCHAR},
+      version = #{version,jdbcType=BIGINT},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
